@@ -14,7 +14,7 @@
 		73B36F6D2124D227000286B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6A2124D227000286B1 /* Constants.swift */; };
 		73B36F6E2124D227000286B1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6B2124D227000286B1 /* Utilities.swift */; };
 		73B36F6F2124D227000286B1 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6C2124D227000286B1 /* Extensions.swift */; };
-		73B36F732124D251000286B1 /* Simblee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F712124D251000286B1 /* Simblee.swift */; };
+		73B36F732124D251000286B1 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F712124D251000286B1 /* Beacon.swift */; };
 		73B36F742124D251000286B1 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F722124D251000286B1 /* Bluetooth.swift */; };
 		73B36F762124D277000286B1 /* JsonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F752124D277000286B1 /* JsonService.swift */; };
 /* End PBXBuildFile section */
@@ -40,7 +40,7 @@
 		73B36F6A2124D227000286B1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		73B36F6B2124D227000286B1 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		73B36F6C2124D227000286B1 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		73B36F712124D251000286B1 /* Simblee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Simblee.swift; sourceTree = "<group>"; };
+		73B36F712124D251000286B1 /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		73B36F722124D251000286B1 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		73B36F752124D277000286B1 /* JsonService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,7 +125,7 @@
 		73B36F702124D251000286B1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				73B36F712124D251000286B1 /* Simblee.swift */,
+				73B36F712124D251000286B1 /* Beacon.swift */,
 				73B36F722124D251000286B1 /* Bluetooth.swift */,
 			);
 			path = Model;
@@ -242,7 +242,7 @@
 			files = (
 				73B36F6F2124D227000286B1 /* Extensions.swift in Sources */,
 				73B36F672124D1D4000286B1 /* UserLocationService.swift in Sources */,
-				73B36F732124D251000286B1 /* Simblee.swift in Sources */,
+				73B36F732124D251000286B1 /* Beacon.swift in Sources */,
 				73B36F6E2124D227000286B1 /* Utilities.swift in Sources */,
 				73B36F6D2124D227000286B1 /* Constants.swift in Sources */,
 				73B36F742124D251000286B1 /* Bluetooth.swift in Sources */,
