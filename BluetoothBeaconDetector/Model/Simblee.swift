@@ -1,5 +1,5 @@
 //
-//  Simblee.swift
+//  Beacon.swift
 //  Beejee
 //
 //  Created by Vishal Bharam on 7/5/18.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-class Simblee {
+class Beacon {
     
     var serialNumber: String?
     var version: String?
@@ -21,7 +21,7 @@ class Simblee {
     var advertisingData : [String : Any]? = nil {
         didSet {
             if let data = advertisingData?["kCBAdvDataManufacturerData"] as? Data {
-                serialNumber = Simblee.extractSerialNumber(advertisementData: advertisingData! as [String : Any])
+                serialNumber = Beacon.extractSerialNumber(advertisementData: advertisingData! as [String : Any])
                 let bytes = data.convertToBytes()
                 if bytes.count > 8 {
                     version = String(bytes[6]) + "." + String(bytes[7]) + "." + String(bytes[8])
@@ -58,8 +58,8 @@ class Simblee {
         return ""
     }
     
-    class func getSimblee(simblees : [Simblee], peripheral : CBPeripheral) -> Simblee? {
-        let result = simblees.filter{$0.peripheral?.identifier.uuidString == peripheral.identifier.uuidString}
+    class func getBeacon(beacons : [Beacon], peripheral : CBPeripheral) -> Beacon? {
+        let result = beacons.filter{$0.peripheral?.identifier.uuidString == peripheral.identifier.uuidString}
         return result.first
     }
 }

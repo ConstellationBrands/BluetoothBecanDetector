@@ -21,11 +21,11 @@ public class Bluetooth: NSObject {
     var currLocation: CLLocation?
     
     var centralManager: CBCentralManager!
-    var simblees = [Simblee]()
+    var beacons = [Beacon]()
     var bgServiceID: CBUUID = CBUUID(string: kBGCustomUUID)
     
-    var foundSimblee : ((_ simblee: Simblee?) -> ())? = nil
-    var lostSimblee : ((_ mirror: Simblee?) -> ())? = nil
+    var foundBeacon : ((_ beacon: Beacon?) -> ())? = nil
+    var lostBeacon : ((_ mirror: Beacon?) -> ())? = nil
     var scanStateChanged : ((_ state: CBManagerState) -> ())? = nil
     var timer = Timer()
     
@@ -41,7 +41,7 @@ public class Bluetooth: NSObject {
 
         self.centralManager = CBCentralManager(delegate: self, queue: nil, options:
             [ CBCentralManagerOptionRestoreIdentifierKey : [kBGRestoreId], CBCentralManagerScanOptionAllowDuplicatesKey : false, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID] ])
-        timer = Timer.scheduledTimer(timeInterval: TimeInterval(kTimerFrequency), target: self, selector: #selector(monitorSimblees), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: TimeInterval(kTimerFrequency), target: self, selector: #selector(monitorBeacons), userInfo: nil, repeats: true)
     }
     
     //MARK: Actions
@@ -53,18 +53,18 @@ public class Bluetooth: NSObject {
         self.centralManager.stopScan()
     }
     
-    @objc func monitorSimblees() {
-        var theLostSimblee: Simblee?
-        for simblee in simblees {
-            if (simblee.lastSeen?.timeIntervalSinceNow)! < kMinCutoffTime {
-                theLostSimblee = simblee
+    @objc func monitorBeacons() {
+        var theLostBeacon: Beacon?
+        for beacon in beacons {
+            if (beacon.lastSeen?.timeIntervalSinceNow)! < kMinCutoffTime {
+                theLostBeacon = beacon
             }
         }
         
-        simblees = simblees.filter() {($0.lastSeen?.timeIntervalSinceNow)! > kMinCutoffTime} //updates array
+        beacons = beacons.filter() {($0.lastSeen?.timeIntervalSinceNow)! > kMinCutoffTime} //updates array
         
-        if let theLostSimblee = theLostSimblee {
-            lostSimblee?(theLostSimblee)
+        if let theLostBeacon = theLostBeacon {
+            lostBeacon?(theLostBeacon)
         }
     }
     
@@ -75,20 +75,20 @@ extension Bluetooth: CBCentralManagerDelegate {
     //MARK: Scanning
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
         //  If our mirrors array contains a mirror representing that peripheral
-        if let existingSimblee = Simblee.getSimblee(simblees: simblees, peripheral: peripheral) {
-            existingSimblee.lastSeen = Date()
+        if let existingBeacon = Beacon.getBeacon(beacons: beacons, peripheral: peripheral) {
+            existingBeacon.lastSeen = Date()
         } else { // Otherwise, create a new PhysicalMirror out of the discovered peripheral
-            let simblee = Simblee(advData: advertisementData, periph: peripheral, RSSI: RSSI)
-            simblees.append(simblee)
-            self.foundSimblee?(simblee)
-            let params: [String: Any] = ["device_id":  UIDevice.current.identifierForVendor!.uuidString, "beacon_id":  Utilities.sharedInstance.byteDataToHexString(advertisementData) ?? "NIL", "latitude": currLocation?.coordinate.latitude ?? NSNull(), "longitude": currLocation?.coordinate.longitude ?? NSNull(), "altitude": currLocation?.altitude ?? NSNull(), "floor": currLocation?.floor?.level ?? NSNull(), "horizontal_accuracy": currLocation?.horizontalAccuracy ?? NSNull(), "vertical_accuracy": currLocation?.verticalAccuracy ?? NSNull(), "RSSI": simblee.RSSString ?? NSNull(), "tx_power": simblee.txPowerLevel ?? NSNull(), "date_time": NSDate().description]
+            let beacon = Beacon(advData: advertisementData, periph: peripheral, RSSI: RSSI)
+            beacons.append(beacon)
+            self.foundBeacon?(beacon)
+            let params: [String: Any] = ["device_id":  UIDevice.current.identifierForVendor!.uuidString, "beacon_id":  Utilities.sharedInstance.byteDataToHexString(advertisementData) ?? "NIL", "latitude": currLocation?.coordinate.latitude ?? NSNull(), "longitude": currLocation?.coordinate.longitude ?? NSNull(), "altitude": currLocation?.altitude ?? NSNull(), "floor": currLocation?.floor?.level ?? NSNull(), "horizontal_accuracy": currLocation?.horizontalAccuracy ?? NSNull(), "vertical_accuracy": currLocation?.verticalAccuracy ?? NSNull(), "RSSI": beacon.RSSString ?? NSNull(), "tx_power": beacon.txPowerLevel ?? NSNull(), "date_time": NSDate().description]
             dataManager.sendData(url: serviceURL, withData: params) { _ in }
         }
     }
     
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if let simblee = Simblee.getSimblee(simblees: simblees, peripheral: peripheral) {
-            lostSimblee?(simblee)
+        if let beacon = Beacon.getBeacon(beacons: beacons, peripheral: peripheral) {
+            lostBeacon?(beacon)
         }
     }
 
@@ -99,7 +99,7 @@ extension Bluetooth: CBCentralManagerDelegate {
         case .poweredOn:
             startScan()
         default :
-            simblees.removeAll()
+            beacons.removeAll()
         }
         scanStateChanged?(central.state)
     }
