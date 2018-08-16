@@ -2,13 +2,12 @@
 //  Extensions.swift
 //  Beejee
 //
-//  Created by Vik Denic on 3/16/17.
-//  Copyright © 2017 Vik Denic. All rights reserved.
+//  Created by Vishal Bharam on 7/5/18.
+//  Copyright © 2018 Vishal Bharam. All rights reserved.
 //
 
 import Foundation
 
-//MARK: Extensions
 extension Data {
     func convertToBytes() -> [Byte] {
         let count = self.count / MemoryLayout<Byte>.size

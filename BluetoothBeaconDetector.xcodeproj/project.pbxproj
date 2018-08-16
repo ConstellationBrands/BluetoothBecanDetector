@@ -10,7 +10,6 @@
 		73B36F322124CD09000286B1 /* BluetoothBeaconDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B36F282124CD09000286B1 /* BluetoothBeaconDetector.framework */; };
 		73B36F372124CD09000286B1 /* BluetoothBeaconDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F362124CD09000286B1 /* BluetoothBeaconDetectorTests.swift */; };
 		73B36F392124CD09000286B1 /* BluetoothBeaconDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B36F2B2124CD09000286B1 /* BluetoothBeaconDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		73B36F5E2124D1B2000286B1 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F5D2124D1B2000286B1 /* Diagnostics.swift */; };
 		73B36F672124D1D4000286B1 /* UserLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F652124D1D4000286B1 /* UserLocationService.swift */; };
 		73B36F6D2124D227000286B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6A2124D227000286B1 /* Constants.swift */; };
 		73B36F6E2124D227000286B1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6B2124D227000286B1 /* Utilities.swift */; };
@@ -37,7 +36,6 @@
 		73B36F312124CD09000286B1 /* BluetoothBeaconDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothBeaconDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73B36F362124CD09000286B1 /* BluetoothBeaconDetectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothBeaconDetectorTests.swift; sourceTree = "<group>"; };
 		73B36F382124CD09000286B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		73B36F5D2124D1B2000286B1 /* Diagnostics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
 		73B36F652124D1D4000286B1 /* UserLocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserLocationService.swift; sourceTree = "<group>"; };
 		73B36F6A2124D227000286B1 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		73B36F6B2124D227000286B1 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 		73B36F642124D1D4000286B1 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				73B36F5D2124D1B2000286B1 /* Diagnostics.swift */,
 				73B36F752124D277000286B1 /* JsonService.swift */,
 				73B36F652124D1D4000286B1 /* UserLocationService.swift */,
 			);
@@ -245,7 +242,6 @@
 			files = (
 				73B36F6F2124D227000286B1 /* Extensions.swift in Sources */,
 				73B36F672124D1D4000286B1 /* UserLocationService.swift in Sources */,
-				73B36F5E2124D1B2000286B1 /* Diagnostics.swift in Sources */,
 				73B36F732124D251000286B1 /* Simblee.swift in Sources */,
 				73B36F6E2124D227000286B1 /* Utilities.swift in Sources */,
 				73B36F6D2124D227000286B1 /* Constants.swift in Sources */,
