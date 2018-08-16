@@ -12,7 +12,6 @@ import CoreLocation
 public typealias UserLocationCallback = ((CLLocation) -> Void)
 
 public class UserLocationService: NSObject, CLLocationManagerDelegate {
-
     let locationManager = CLLocationManager()
     var userCurrentLocation: CLLocation?
     var callback: UserLocationCallback?
@@ -45,7 +44,6 @@ public class UserLocationService: NSObject, CLLocationManagerDelegate {
         locationManager.stopUpdatingLocation()
     }
 
-    // MARK: - CLLocationManagerDelegate
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let currentLocation = locations.last {
             userCurrentLocation = currentLocation
