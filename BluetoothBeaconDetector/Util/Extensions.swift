@@ -15,7 +15,6 @@ extension Data {
         self.copyBytes(to: &result, count: count * MemoryLayout<Byte>.size)
         return result
     }
-    
 }
 
 extension UInt16 {

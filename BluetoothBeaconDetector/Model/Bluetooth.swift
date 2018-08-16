@@ -13,14 +13,12 @@ import CoreLocation
 import UserNotifications
 
 public class Bluetooth: NSObject {
-    
     public static let sharedInstance = Bluetooth()
-
     var dataManager: JSONService!
     var userLocationService: UserLocationService?
     var currLocation: CLLocation?
-    
     var centralManager: CBCentralManager!
+    
     var beacons = [Beacon]()
     var bgServiceID: CBUUID = CBUUID(string: kBGCustomUUID)
     
@@ -31,26 +29,39 @@ public class Bluetooth: NSObject {
     
     override init() {
         super.init()
-        
         self.dataManager = JSONService()
-        self.userLocationService = UserLocationService()
-        userLocationService?.startTracking()
-        userLocationService?.getUserCurrentLocation { (location) in
-            self.currLocation = location
-        }
-
-        self.centralManager = CBCentralManager(delegate: self, queue: nil, options:
-            [ CBCentralManagerOptionRestoreIdentifierKey : [kBGRestoreId], CBCentralManagerScanOptionAllowDuplicatesKey : false, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID] ])
-        timer = Timer.scheduledTimer(timeInterval: TimeInterval(kTimerFrequency), target: self, selector: #selector(monitorBeacons), userInfo: nil, repeats: true)
+        startLocationService()
+        startCentralMangerAndTimer()
     }
     
-    //MARK: Actions
     public func startScan() {
         self.centralManager.scanForPeripherals(withServices: [bgServiceID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID]])
     }
     
     public func stopScan() {
         self.centralManager.stopScan()
+    }
+}
+
+// MARK: - Private fuctions
+extension Bluetooth {
+    private func startLocationService() {
+        self.userLocationService = UserLocationService()
+        userLocationService?.startTracking()
+        userLocationService?.getUserCurrentLocation { (location) in
+            self.currLocation = location
+        }
+    }
+    
+    private func startCentralMangerAndTimer() {
+        self.centralManager = CBCentralManager(delegate: self, queue: nil, options:
+            [ CBCentralManagerOptionRestoreIdentifierKey : [kBGRestoreId], CBCentralManagerScanOptionAllowDuplicatesKey : false, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID] ])
+        timer = Timer.scheduledTimer(timeInterval: TimeInterval(kTimerFrequency), target: self, selector: #selector(monitorBeacons), userInfo: nil, repeats: true)
+    }
+    
+    private func createParameter(forBeacon beacon: Beacon, forDiscover peripheral: CBPeripheral, forAdvertisementData advertisementData: [String : Any]) -> [String: Any] {
+        let params: [String: Any] =  ["device_id":  UIDevice.current.identifierForVendor!.uuidString, "beacon_id":  Utilities.sharedInstance.byteDataToHexString(advertisementData) ?? "NIL", "latitude": currLocation?.coordinate.latitude ?? NSNull(), "longitude": currLocation?.coordinate.longitude ?? NSNull(), "altitude": currLocation?.altitude ?? NSNull(), "floor": currLocation?.floor?.level ?? NSNull(), "horizontal_accuracy": currLocation?.horizontalAccuracy ?? NSNull(), "vertical_accuracy": currLocation?.verticalAccuracy ?? NSNull(), "RSSI": beacon.RSSString ?? NSNull(), "tx_power": beacon.txPowerLevel ?? NSNull(), "date_time": NSDate().description]
+        return params
     }
     
     @objc func monitorBeacons() {
@@ -60,38 +71,31 @@ public class Bluetooth: NSObject {
                 theLostBeacon = beacon
             }
         }
-        
         beacons = beacons.filter() {($0.lastSeen?.timeIntervalSinceNow)! > kMinCutoffTime} //updates array
-        
         if let theLostBeacon = theLostBeacon {
             lostBeacon?(theLostBeacon)
         }
     }
-    
 }
 
 extension Bluetooth: CBCentralManagerDelegate {
-    
-    //MARK: Scanning
     public func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        //  If our mirrors array contains a mirror representing that peripheral
-        if let existingBeacon = Beacon.getBeacon(beacons: beacons, peripheral: peripheral) {
+        if let existingBeacon = Beacon.getBeacon(forBeacons: beacons, forPeripheral: peripheral) {
             existingBeacon.lastSeen = Date()
-        } else { // Otherwise, create a new PhysicalMirror out of the discovered peripheral
+        } else {
             let beacon = Beacon(advData: advertisementData, periph: peripheral, RSSI: RSSI)
             beacons.append(beacon)
             self.foundBeacon?(beacon)
-            let params: [String: Any] = ["device_id":  UIDevice.current.identifierForVendor!.uuidString, "beacon_id":  Utilities.sharedInstance.byteDataToHexString(advertisementData) ?? "NIL", "latitude": currLocation?.coordinate.latitude ?? NSNull(), "longitude": currLocation?.coordinate.longitude ?? NSNull(), "altitude": currLocation?.altitude ?? NSNull(), "floor": currLocation?.floor?.level ?? NSNull(), "horizontal_accuracy": currLocation?.horizontalAccuracy ?? NSNull(), "vertical_accuracy": currLocation?.verticalAccuracy ?? NSNull(), "RSSI": beacon.RSSString ?? NSNull(), "tx_power": beacon.txPowerLevel ?? NSNull(), "date_time": NSDate().description]
+            let params = self.createParameter(forBeacon: beacon, forDiscover: peripheral, forAdvertisementData: advertisementData)
             dataManager.sendData(url: serviceURL, withData: params) { _ in }
         }
     }
     
     public func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
-        if let beacon = Beacon.getBeacon(beacons: beacons, peripheral: peripheral) {
+        if let beacon = Beacon.getBeacon(forBeacons: beacons, forPeripheral: peripheral) {
             lostBeacon?(beacon)
         }
     }
-
 
     @available(iOS 5.0, *)
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
@@ -104,9 +108,7 @@ extension Bluetooth: CBCentralManagerDelegate {
         scanStateChanged?(central.state)
     }
 
-    //Restore
     public func centralManager(_ central: CBCentralManager, willRestoreState dict: [String : Any]) {
-        let _ = Bluetooth.sharedInstance
         Bluetooth.sharedInstance.startScan()
     }
 }

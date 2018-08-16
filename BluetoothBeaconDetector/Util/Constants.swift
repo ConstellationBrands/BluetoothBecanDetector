@@ -13,6 +13,7 @@ let serviceURL = "https://webhook.logentries.com/noformat/logs/41d20a15-efad-481
 
 let kBGRestoreId = "beegeeCentral"
 let kBGCustomUUID = "FE33"
+let kCBAdvertisementManufacturerDataKey = "kCBAdvDataManufacturerData"
 let kTimerFrequency = 1.0
 let kMinCutoffTime = -3.3
 
