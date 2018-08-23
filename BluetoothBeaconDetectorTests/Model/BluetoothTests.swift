@@ -8,10 +8,14 @@
 
 import XCTest
 import CoreLocation
+import CoreBluetooth
 @testable import BluetoothBeaconDetector
 
 class BluetoothTests: XCTestCase {
     var bluetooth: Bluetooth!
+    var jsonService: TestJsonService!
+    var locationService: TestUserLocationService!
+    var centralManager: CBCentralManager!
 
     class TestJsonService: JSONService {
         override func sendData(url: String, withData params: [String : Any], completionHandler: @escaping (([String : Any]?) -> Void)) {
@@ -28,10 +32,7 @@ class BluetoothTests: XCTestCase {
         public var stoppedTracking = false
 
         override func getUserCurrentLocation() -> CLLocation? {
-            if self.locationManager != nil {
-                return testLocation()
-            }
-            return nil
+            return testLocation()
         }
 
         override func getUserCurrentLocation(locationCallback: @escaping UserLocationCallback) {
@@ -51,17 +52,24 @@ class BluetoothTests: XCTestCase {
         }
     }
 
+    class TestCBCentralManager: CBCentralManager {
+        override func retrievePeripherals(withIdentifiers identifiers: [UUID]) -> [CBPeripheral] {
+            return []
+        }
+    }
+
     override func setUp() {
         super.setUp()
         bluetooth = Bluetooth()
-        bluetooth.dataManager = TestJsonService()
-        bluetooth.userLocationService =  TestUserLocationService()
+        jsonService = TestJsonService()
+        locationService = TestUserLocationService()
+        bluetooth.dataManager = jsonService
+        bluetooth.userLocationService = locationService
+
+        centralManager = TestCBCentralManager()
     }
     
     override func tearDown() {
         super.tearDown()
-    }
-
-    func testThatItStartScanningForBeacon() {
     }
 }
