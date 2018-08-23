@@ -17,6 +17,11 @@
 		73B36F732124D251000286B1 /* Beacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F712124D251000286B1 /* Beacon.swift */; };
 		73B36F742124D251000286B1 /* Bluetooth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F722124D251000286B1 /* Bluetooth.swift */; };
 		73B36F762124D277000286B1 /* JsonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F752124D277000286B1 /* JsonService.swift */; };
+		85A2E961212E05B3007913D3 /* UserLocationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A2E960212E05B3007913D3 /* UserLocationServiceTests.swift */; };
+		85A2E963212E12D7007913D3 /* JsonServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A2E962212E12D7007913D3 /* JsonServiceTests.swift */; };
+		85A2E967212E1BCA007913D3 /* UtilitiesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A2E966212E1BCA007913D3 /* UtilitiesTests.swift */; };
+		85A2E969212E2767007913D3 /* BeaconTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A2E968212E2767007913D3 /* BeaconTests.swift */; };
+		85A2E96B212E2792007913D3 /* BluetoothTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85A2E96A212E2792007913D3 /* BluetoothTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +48,11 @@
 		73B36F712124D251000286B1 /* Beacon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Beacon.swift; sourceTree = "<group>"; };
 		73B36F722124D251000286B1 /* Bluetooth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bluetooth.swift; sourceTree = "<group>"; };
 		73B36F752124D277000286B1 /* JsonService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonService.swift; sourceTree = "<group>"; };
+		85A2E960212E05B3007913D3 /* UserLocationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocationServiceTests.swift; sourceTree = "<group>"; };
+		85A2E962212E12D7007913D3 /* JsonServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonServiceTests.swift; sourceTree = "<group>"; };
+		85A2E966212E1BCA007913D3 /* UtilitiesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilitiesTests.swift; sourceTree = "<group>"; };
+		85A2E968212E2767007913D3 /* BeaconTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconTests.swift; sourceTree = "<group>"; };
+		85A2E96A212E2792007913D3 /* BluetoothTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +107,9 @@
 		73B36F352124CD09000286B1 /* BluetoothBeaconDetectorTests */ = {
 			isa = PBXGroup;
 			children = (
+				85A2E965212E1BB0007913D3 /* Util */,
+				85A2E964212E1BAB007913D3 /* Model */,
+				85A2E95F212E0590007913D3 /* Service */,
 				73B36F362124CD09000286B1 /* BluetoothBeaconDetectorTests.swift */,
 				73B36F382124CD09000286B1 /* Info.plist */,
 			);
@@ -129,6 +142,32 @@
 				73B36F722124D251000286B1 /* Bluetooth.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		85A2E95F212E0590007913D3 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				85A2E960212E05B3007913D3 /* UserLocationServiceTests.swift */,
+				85A2E962212E12D7007913D3 /* JsonServiceTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		85A2E964212E1BAB007913D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				85A2E968212E2767007913D3 /* BeaconTests.swift */,
+				85A2E96A212E2792007913D3 /* BluetoothTests.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		85A2E965212E1BB0007913D3 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				85A2E966212E1BCA007913D3 /* UtilitiesTests.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +293,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85A2E969212E2767007913D3 /* BeaconTests.swift in Sources */,
 				73B36F372124CD09000286B1 /* BluetoothBeaconDetectorTests.swift in Sources */,
+				85A2E963212E12D7007913D3 /* JsonServiceTests.swift in Sources */,
+				85A2E967212E1BCA007913D3 /* UtilitiesTests.swift in Sources */,
+				85A2E96B212E2792007913D3 /* BluetoothTests.swift in Sources */,
+				85A2E961212E05B3007913D3 /* UserLocationServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
