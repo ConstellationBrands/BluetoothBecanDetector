@@ -43,14 +43,14 @@ class Beacon {
 }
 
 extension Beacon {
-    class func getSerialNumber(foradvertisementData advertisementData : [String : Any]) -> String {
+    class func getSerialNumber(foradvertisementData advertisementData : [String : Any]) -> String? {
         if let data = advertisementData[kCBAdvertisementManufacturerDataKey] as? Data {
             let value = data[2...5]
             var stringValue = ""
             for byte in value { stringValue = stringValue + String(byte, radix: 16) }
             return stringValue
         }
-        return ""
+        return nil
     }
     
     class func getBeacon(forBeacons  beacons: [Beacon], forPeripheral peripheral : CBPeripheral) -> Beacon? {
