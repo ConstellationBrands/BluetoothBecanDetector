@@ -8,6 +8,7 @@
 
 import Foundation
 import XCTest
+import CoreBluetooth
 @testable import BluetoothBeaconDetector
 
 
@@ -28,8 +29,14 @@ class UtilitiesTests: XCTestCase {
     }
 
     func testThatItSuccessfullyConvertAdvDataToBeaconCode() {
-//        let data = [FE33: <01010100 d0000001 c29d>, FE65: <01>]
-//        let advData: [String: Any] = ["kCBAdvDataServiceData" : data]
-//        XCTAssertEqual(utilities.byteDataToHexString(advData), "D0000001C29D")
+        let data: [CBUUID: Data?] = [CBUUID(string:"FE33") : Data(bytes: [0x01, 0x01, 0x01, 0x00, 0xd0, 0x00, 0x00, 0x01, 0xc2, 0x9d]), CBUUID(string:"FE65"): Data(bytes: [0x01])]
+        let advData: [String: Any] = ["kCBAdvDataServiceData" : data]
+        XCTAssertEqual(utilities.byteDataToHexString(advData), "D0000001C29D")
+    }
+
+    func testThatItSuccessfullyConvertEmptyAdvDataToNil() {
+        let data: [CBUUID: Data?] = [CBUUID(string:"FE33") : nil, CBUUID(string:"FE65"): nil]
+        let advData: [String: Any] = ["kCBAdvDataServiceData" : data]
+        XCTAssertNil(utilities.byteDataToHexString(advData))
     }
 }
