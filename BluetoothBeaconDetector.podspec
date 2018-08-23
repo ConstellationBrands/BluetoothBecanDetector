@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
           #3.  
           s.summary         = "Finding Beacons and sending Latitude and Longitude data"
           #4.
-          s.homepage        = "https://www.cbrands.com/"
+          s.homepage        = "https://github.com/ConstellationBrands/BluetoothBecanDetector"
           #5.
           s.license              = "Constellation Brands"
           #6.
