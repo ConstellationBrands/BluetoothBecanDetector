@@ -15,20 +15,16 @@ class BluetoothTests: XCTestCase {
     var bluetooth: Bluetooth!
     var jsonService: TestJsonService!
     var locationService: TestUserLocationService!
-    var centralManager: CBCentralManager!
+    var centralManager: TestCBCentralManager!
 
     class TestJsonService: JSONService {
         override func sendData(url: String, withData params: [String : Any], completionHandler: @escaping (([String : Any]?) -> Void)) {
             completionHandler(nil)
         }
-
-        override func getData(url: String, completionHandler: @escaping (([String : Any]?) -> Void)) {
-            completionHandler(nil)
-        }
     }
 
     class TestUserLocationService: UserLocationService {
-        public var startedTracking = false
+        public var startedTracking = true
         public var stoppedTracking = false
 
         override func getUserCurrentLocation() -> CLLocation? {
@@ -53,23 +49,47 @@ class BluetoothTests: XCTestCase {
     }
 
     class TestCBCentralManager: CBCentralManager {
-        override func retrievePeripherals(withIdentifiers identifiers: [UUID]) -> [CBPeripheral] {
-            return []
+        public var startedScanning = false
+        public var stoppedScanning = false
+
+        override func stopScan() {
+            stoppedScanning = true
+        }
+        override func scanForPeripherals(withServices serviceUUIDs: [CBUUID]?, options: [String : Any]? = nil) {
+            startedScanning = true
         }
     }
 
     override func setUp() {
         super.setUp()
-        bluetooth = Bluetooth()
         jsonService = TestJsonService()
         locationService = TestUserLocationService()
-        bluetooth.dataManager = jsonService
-        bluetooth.userLocationService = locationService
-
+        bluetooth = Bluetooth(userLocationService: locationService)
         centralManager = TestCBCentralManager()
     }
     
     override func tearDown() {
         super.tearDown()
+    }
+
+    func testItStartedTrakingLocation() {
+        XCTAssertTrue(locationService.startedTracking)
+    }
+
+    func testThatItStartScanningForBeacons() {
+        bluetooth.centralManager = centralManager
+        bluetooth.startScan()
+        XCTAssertTrue(centralManager.startedScanning)
+    }
+
+    func testItStopsScanningWhenRequested() {
+        bluetooth.centralManager = centralManager
+        bluetooth.stopScan()
+        XCTAssertTrue(centralManager.stoppedScanning)
+    }
+
+    func testThatItSetsCorrectLocation() {
+        XCTAssertEqual(bluetooth.currLocation?.coordinate.latitude, 37.9101)
+        XCTAssertEqual(bluetooth.currLocation?.coordinate.longitude, 122.0652)
     }
 }

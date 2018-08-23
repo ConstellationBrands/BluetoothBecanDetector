@@ -27,9 +27,10 @@ public class Bluetooth: NSObject {
     var scanStateChanged : ((_ state: CBManagerState) -> ())? = nil
     var timer = Timer()
     
-    override init() {
+    public init(jsonService: JSONService = JSONService(), userLocationService: UserLocationService = UserLocationService()) {
         super.init()
-        self.dataManager = JSONService()
+        self.dataManager = jsonService
+        self.userLocationService = userLocationService
         startLocationService()
         startCentralMangerAndTimer()
     }
@@ -46,7 +47,6 @@ public class Bluetooth: NSObject {
 // MARK: - Private fuctions
 extension Bluetooth {
     private func startLocationService() {
-        self.userLocationService = UserLocationService()
         userLocationService?.startTracking()
         userLocationService?.getUserCurrentLocation { (location) in
             self.currLocation = location

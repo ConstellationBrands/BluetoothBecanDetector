@@ -39,4 +39,11 @@ class UtilitiesTests: XCTestCase {
         let advData: [String: Any] = ["kCBAdvDataServiceData" : data]
         XCTAssertNil(utilities.byteDataToHexString(advData))
     }
+
+    func testThatItSuccessfullyConvertsDataToBytes() {
+        let data = Data(bytes: [0x01, 0x01, 0x01, 0x00, 0xd0, 0x00, 0x00, 0x01, 0xc2, 0x9d])
+        let bytes = data.convertToBytes()
+        XCTAssertFalse(bytes.isEmpty)
+        XCTAssertEqual(bytes, [0x01, 0x01, 0x01, 0x00, 0xd0, 0x00, 0x00, 0x01, 0xc2, 0x9d])
+    }
 }

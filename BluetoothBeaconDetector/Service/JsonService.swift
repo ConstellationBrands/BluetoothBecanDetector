@@ -11,7 +11,9 @@ import Foundation
 
 
 // JSONService : Class to get JSON data from server
-class JSONService {
+public class JSONService {
+    public init() {}
+
     // GetData function to get JSON data
     func getData(url:String, completionHandler: @escaping (([String:Any]?) -> Void)) -> Void {
         let url: NSURL = NSURL(string: url)!
