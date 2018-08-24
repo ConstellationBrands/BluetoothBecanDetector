@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		73655350212FCE2200139DB4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7365534F212FCE2200139DB4 /* Logger.swift */; };
 		73B36F322124CD09000286B1 /* BluetoothBeaconDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B36F282124CD09000286B1 /* BluetoothBeaconDetector.framework */; };
 		73B36F372124CD09000286B1 /* BluetoothBeaconDetectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F362124CD09000286B1 /* BluetoothBeaconDetectorTests.swift */; };
 		73B36F392124CD09000286B1 /* BluetoothBeaconDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B36F2B2124CD09000286B1 /* BluetoothBeaconDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -30,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7365534F212FCE2200139DB4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		73B36F282124CD09000286B1 /* BluetoothBeaconDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothBeaconDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		73B36F2B2124CD09000286B1 /* BluetoothBeaconDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothBeaconDetector.h; sourceTree = "<group>"; };
 		73B36F2C2124CD09000286B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				73B36F6A2124D227000286B1 /* Constants.swift */,
 				73B36F6C2124D227000286B1 /* Extensions.swift */,
 				73B36F6B2124D227000286B1 /* Utilities.swift */,
+				7365534F212FCE2200139DB4 /* Logger.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -247,6 +250,7 @@
 				73B36F6D2124D227000286B1 /* Constants.swift in Sources */,
 				73B36F742124D251000286B1 /* Bluetooth.swift in Sources */,
 				73B36F762124D277000286B1 /* JsonService.swift in Sources */,
+				73655350212FCE2200139DB4 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
