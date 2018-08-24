@@ -14,6 +14,7 @@ import UserNotifications
 
 public class Bluetooth: NSObject {
     public static let sharedInstance = Bluetooth()
+    public let logger = Logger()
     var dataManager: JSONService!
     var userLocationService: UserLocationService?
     var currLocation: CLLocation?
@@ -37,10 +38,16 @@ public class Bluetooth: NSObject {
     
     public func startScan() {
         self.centralManager.scanForPeripherals(withServices: [bgServiceID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID]])
+        if logger.isDebugModeOn {
+            print("scan started for \(bgServiceID)")
+        }
     }
     
     public func stopScan() {
         self.centralManager.stopScan()
+        if logger.isDebugModeOn {
+            print("scan stopped")
+        }
     }
 }
 
@@ -87,7 +94,11 @@ extension Bluetooth: CBCentralManagerDelegate {
             beacons.append(beacon)
             self.foundBeacon?(beacon)
             let params = self.createParameter(forBeacon: beacon, forDiscover: peripheral, forAdvertisementData: advertisementData)
-            dataManager.sendData(url: serviceURL, withData: params) { _ in }
+            dataManager.sendData(url: serviceURL, withData: params) { _ in
+                if self.logger.isDebugModeOn {
+                    print("Data Mananger send the becaon data \(beacon)")
+                }
+            }
         }
     }
     
