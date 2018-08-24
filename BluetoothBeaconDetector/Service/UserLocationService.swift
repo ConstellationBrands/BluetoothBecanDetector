@@ -12,7 +12,7 @@ import CoreLocation
 public typealias UserLocationCallback = ((CLLocation) -> Void)
 
 public class UserLocationService: NSObject, CLLocationManagerDelegate {
-    let locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     var userCurrentLocation: CLLocation?
     var callback: UserLocationCallback?
 
