@@ -52,26 +52,26 @@ public class Bluetooth: NSObject {
 }
 
 // MARK: - Private fuctions
-extension Bluetooth {
-    private func startLocationService() {
+public extension Bluetooth {
+    public func startLocationService() {
         userLocationService?.startTracking()
         userLocationService?.getUserCurrentLocation { (location) in
             self.currLocation = location
         }
     }
     
-    private func startCentralMangerAndTimer() {
+    public func startCentralMangerAndTimer() {
         self.centralManager = CBCentralManager(delegate: self, queue: nil, options:
             [ CBCentralManagerOptionRestoreIdentifierKey : [kBGRestoreId], CBCentralManagerScanOptionAllowDuplicatesKey : false, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID] ])
         timer = Timer.scheduledTimer(timeInterval: TimeInterval(kTimerFrequency), target: self, selector: #selector(monitorBeacons), userInfo: nil, repeats: true)
     }
     
-    private func createParameter(forBeacon beacon: Beacon, forDiscover peripheral: CBPeripheral, forAdvertisementData advertisementData: [String : Any]) -> [String: Any] {
+    public func createParameter(forBeacon beacon: Beacon, forDiscover peripheral: CBPeripheral, forAdvertisementData advertisementData: [String : Any]) -> [String: Any] {
         let params: [String: Any] =  ["device_id":  UIDevice.current.identifierForVendor!.uuidString, "beacon_id":  Utilities.sharedInstance.byteDataToHexString(advertisementData) ?? "NIL", "latitude": currLocation?.coordinate.latitude ?? NSNull(), "longitude": currLocation?.coordinate.longitude ?? NSNull(), "altitude": currLocation?.altitude ?? NSNull(), "floor": currLocation?.floor?.level ?? NSNull(), "horizontal_accuracy": currLocation?.horizontalAccuracy ?? NSNull(), "vertical_accuracy": currLocation?.verticalAccuracy ?? NSNull(), "RSSI": beacon.RSSString ?? NSNull(), "tx_power": beacon.txPowerLevel ?? NSNull(), "date_time": NSDate().description]
         return params
     }
     
-    @objc func monitorBeacons() {
+    @objc public func monitorBeacons() {
         var theLostBeacon: Beacon?
         for beacon in beacons {
             if (beacon.lastSeen?.timeIntervalSinceNow)! < kMinCutoffTime {

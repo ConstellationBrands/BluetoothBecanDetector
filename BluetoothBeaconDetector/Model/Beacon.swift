@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-class Beacon {
+public class Beacon {
     var serialNumber: String?
     var version: String?
     var peripheral: CBPeripheral?
