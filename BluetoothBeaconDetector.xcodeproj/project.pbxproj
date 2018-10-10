@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		73655350212FCE2200139DB4 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7365534F212FCE2200139DB4 /* Logger.swift */; };
 		73B36F322124CD09000286B1 /* BluetoothBeaconDetector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73B36F282124CD09000286B1 /* BluetoothBeaconDetector.framework */; };
-		73B36F392124CD09000286B1 /* BluetoothBeaconDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 73B36F2B2124CD09000286B1 /* BluetoothBeaconDetector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		73B36F672124D1D4000286B1 /* UserLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F652124D1D4000286B1 /* UserLocationService.swift */; };
 		73B36F6D2124D227000286B1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6A2124D227000286B1 /* Constants.swift */; };
 		73B36F6E2124D227000286B1 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73B36F6B2124D227000286B1 /* Utilities.swift */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		7365534F212FCE2200139DB4 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		73B36F282124CD09000286B1 /* BluetoothBeaconDetector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BluetoothBeaconDetector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		73B36F2B2124CD09000286B1 /* BluetoothBeaconDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BluetoothBeaconDetector.h; sourceTree = "<group>"; };
 		73B36F2C2124CD09000286B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		73B36F312124CD09000286B1 /* BluetoothBeaconDetectorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluetoothBeaconDetectorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		73B36F382124CD09000286B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 		73B36F2A2124CD09000286B1 /* BluetoothBeaconDetector */ = {
 			isa = PBXGroup;
 			children = (
-				73B36F2B2124CD09000286B1 /* BluetoothBeaconDetector.h */,
 				73B36F2C2124CD09000286B1 /* Info.plist */,
 				73B36F702124D251000286B1 /* Model */,
 				73B36F692124D227000286B1 /* Util */,
@@ -177,7 +174,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				73B36F392124CD09000286B1 /* BluetoothBeaconDetector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

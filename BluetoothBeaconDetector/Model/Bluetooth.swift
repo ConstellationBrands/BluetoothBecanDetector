@@ -12,8 +12,8 @@ import CoreBluetooth
 import CoreLocation
 import UserNotifications
 
-public class Bluetooth: NSObject {
-    public static let sharedInstance = Bluetooth()
+@objc public class Bluetooth: NSObject {
+    @objc public static let sharedInstance = Bluetooth()
     public let logger = Logger()
     var dataManager: JSONService!
     var userLocationService: UserLocationService?
@@ -36,14 +36,14 @@ public class Bluetooth: NSObject {
         startCentralMangerAndTimer()
     }
     
-    public func startScan() {
+    @objc public func startScan() {
         self.centralManager.scanForPeripherals(withServices: [bgServiceID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [bgServiceID]])
         if logger.isDebugModeOn {
             print("scan started for \(bgServiceID)")
         }
     }
     
-    public func stopScan() {
+    @objc public func stopScan() {
         self.centralManager.stopScan()
         if logger.isDebugModeOn {
             print("scan stopped")
