@@ -93,6 +93,11 @@ extension Bluetooth: CBCentralManagerDelegate {
             let beacon = Beacon(advData: advertisementData, periph: peripheral, RSSI: RSSI)
             beacons.append(beacon)
             self.foundBeacon?(beacon)
+
+            self.userLocationService?.getUserCurrentLocation { (location) in
+                self.currLocation = location
+            }
+
             let params = self.createParameter(forBeacon: beacon, forDiscover: peripheral, forAdvertisementData: advertisementData)
             dataManager.sendData(url: serviceURL, withData: params) { _ in
                 if self.logger.isDebugModeOn {
