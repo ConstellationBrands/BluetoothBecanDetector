@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
           #1.
           s.name            = "BluetoothBeaconDetector"
           #2.
-          s.version         = "1.0.1"
+          s.version         = "2.0"
           #3.  
           s.summary         = "Finding Beacons and sending Latitude and Longitude data"
           #4.
