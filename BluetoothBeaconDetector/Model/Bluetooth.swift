@@ -96,12 +96,12 @@ extension Bluetooth: CBCentralManagerDelegate {
 
             self.userLocationService?.getUserCurrentLocation { (location) in
                 self.currLocation = location
-            }
 
-            let params = self.createParameter(forBeacon: beacon, forDiscover: peripheral, forAdvertisementData: advertisementData)
-            dataManager.sendData(url: serviceURL, withData: params) { _ in
-                if self.logger.isDebugModeOn {
-                    print("Data Mananger send the becaon data \(beacon)")
+                let params = self.createParameter(forBeacon: beacon, forDiscover: peripheral, forAdvertisementData: advertisementData)
+                self.dataManager.sendData(url: serviceURL, withData: params) { _ in
+                    if self.logger.isDebugModeOn {
+                        print("Data Mananger send the becaon data \(beacon)")
+                    }
                 }
             }
         }
