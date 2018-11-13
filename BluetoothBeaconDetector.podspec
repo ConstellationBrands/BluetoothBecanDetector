@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
           #1.
           s.name            = "BluetoothBeaconDetector"
           #2.
-          s.version         = "3.0"
+          s.version         = "2.1"
           #3.  
           s.summary         = "Finding Beacons and sending Latitude and Longitude data"
           #4.
@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
           #7.
           s.platform        = :ios, "10.0"
           #8.
-          s.source          = { :git => "https://github.com/ConstellationBrands/BluetoothBecanDetector.git", :tag => "3.0" }
+          s.source          = { :git => "https://github.com/ConstellationBrands/BluetoothBecanDetector.git", :tag => "2.1" }
           #9.
           s.source_files    = "BluetoothBeaconDetector", "BluetoothBeaconDetector/**/*.{h,m,swift}"
     end
