@@ -117,7 +117,13 @@ extension Bluetooth: CBCentralManagerDelegate {
     public func centralManagerDidUpdateState(_ central: CBCentralManager) {
         switch central.state {
         case .poweredOn:
-            startScan()
+            DispatchQueue.main.async {
+                guard let _  = self.centralManager  else {
+                    central.scanForPeripherals(withServices: [self.bgServiceID], options: [CBCentralManagerScanOptionAllowDuplicatesKey : true, CBCentralManagerScanOptionSolicitedServiceUUIDsKey : [self.bgServiceID]])
+                    return
+                }
+                self.startScan()
+            }
         default :
             beacons.removeAll()
         }
